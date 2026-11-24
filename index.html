@@ -1,0 +1,545 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f3ed">
+  <meta name="description" content="Campus Collective is a student-led space for good ideas, new friends, and projects that bring campus to life.">
+  <title>Campus Collective — Find your people</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --paper: #f5f3ed;
+      --ink: #20231f;
+      --muted: #6b7068;
+      --green: #214d3a;
+      --lime: #d7ed75;
+      --coral: #ed7658;
+      --line: rgba(32, 35, 31, .16);
+      --serif: Georgia, "Times New Roman", serif;
+      --sans: "Segoe UI", Arial, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--sans);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; }
+
+    .skip-link {
+      position: absolute;
+      top: -4rem;
+      left: 1rem;
+      z-index: 5;
+      padding: .8rem 1rem;
+      background: var(--lime);
+      color: var(--ink);
+    }
+
+    .skip-link:focus { top: 1rem; }
+
+    .page-shell {
+      width: min(1440px, 100%);
+      margin: 0 auto;
+      overflow: hidden;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 82px;
+      padding: 0 7.2%;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: .7rem;
+      text-decoration: none;
+      font-size: .9rem;
+      font-weight: 750;
+      letter-spacing: -.03em;
+    }
+
+    .brand-mark {
+      display: grid;
+      width: 31px;
+      aspect-ratio: 1;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--green);
+      color: var(--lime);
+      font-family: var(--serif);
+      font-size: 1.2rem;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: clamp(1.2rem, 3vw, 2.8rem);
+      font-size: .78rem;
+      font-weight: 650;
+    }
+
+    .nav-links a { text-decoration: none; }
+    .nav-links a:hover { color: var(--green); }
+
+    .nav-join {
+      padding: .72rem 1.1rem;
+      border: 1px solid var(--ink);
+      border-radius: 999px;
+    }
+
+    .hero {
+      display: grid;
+      min-height: 620px;
+      grid-template-columns: 1fr .9fr;
+      align-items: center;
+      gap: 5%;
+      padding: 5.5rem 9% 6rem;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: .55rem;
+      margin: 0 0 1.5rem;
+      color: var(--green);
+      font-size: .68rem;
+      font-weight: 750;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--coral);
+      content: "";
+    }
+
+    h1, h2, h3, p { margin-top: 0; }
+
+    h1 {
+      max-width: 620px;
+      margin-bottom: 1.35rem;
+      font-family: var(--serif);
+      font-size: clamp(3.6rem, 7.3vw, 6.7rem);
+      font-weight: 400;
+      letter-spacing: -.075em;
+      line-height: .96;
+    }
+
+    h1 em {
+      color: var(--green);
+      font-weight: 400;
+    }
+
+    .hero-copy {
+      max-width: 420px;
+      margin-bottom: 2rem;
+      color: var(--muted);
+      font-size: 1rem;
+      line-height: 1.75;
+    }
+
+    .button {
+      display: inline-flex;
+      min-height: 49px;
+      align-items: center;
+      justify-content: center;
+      gap: 1.2rem;
+      padding: 0 1.25rem;
+      border-radius: 999px;
+      background: var(--green);
+      color: #fff;
+      font-size: .8rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: transform .2s ease, background .2s ease;
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+      background: #173a2b;
+    }
+
+    .button span { color: var(--lime); font-size: 1.1rem; }
+
+    .artwork {
+      position: relative;
+      width: min(100%, 440px);
+      aspect-ratio: 1 / 1.02;
+      justify-self: end;
+      overflow: hidden;
+      border-radius: 48% 48% 12px 12px;
+      background: var(--green);
+    }
+
+    .sun {
+      position: absolute;
+      top: 12%;
+      right: 12%;
+      width: 23%;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background: var(--lime);
+    }
+
+    .orbit {
+      position: absolute;
+      top: 19%;
+      left: 16%;
+      width: 70%;
+      height: 47%;
+      border: 1px solid rgba(245, 243, 237, .42);
+      border-radius: 50%;
+      transform: rotate(-31deg);
+    }
+
+    .orbit::after {
+      position: absolute;
+      top: 12%;
+      right: 15%;
+      width: 13px;
+      height: 13px;
+      border-radius: 50%;
+      background: var(--coral);
+      content: "";
+    }
+
+    .arch {
+      position: absolute;
+      bottom: -7%;
+      left: 18%;
+      width: 64%;
+      height: 70%;
+      border: 1px solid rgba(245, 243, 237, .75);
+      border-bottom: 0;
+      border-radius: 50% 50% 0 0;
+    }
+
+    .arch-inner {
+      position: absolute;
+      right: 12%;
+      bottom: -7%;
+      left: 12%;
+      height: 80%;
+      border: 1px solid rgba(245, 243, 237, .52);
+      border-bottom: 0;
+      border-radius: 50% 50% 0 0;
+    }
+
+    .art-label {
+      position: absolute;
+      right: 7%;
+      bottom: 8%;
+      left: 7%;
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      color: var(--paper);
+      font-size: .65rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .art-label strong {
+      max-width: 165px;
+      font-family: var(--serif);
+      font-size: clamp(1.2rem, 2.4vw, 1.8rem);
+      font-weight: 400;
+      letter-spacing: -.04em;
+      line-height: 1.05;
+      text-transform: none;
+    }
+
+    .ticker {
+      display: flex;
+      min-height: 55px;
+      align-items: center;
+      justify-content: center;
+      gap: clamp(1rem, 4vw, 3.5rem);
+      padding: .8rem 1.5rem;
+      background: var(--lime);
+      color: var(--green);
+      font-size: .69rem;
+      font-weight: 750;
+      letter-spacing: .13em;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    .ticker span { white-space: nowrap; }
+    .ticker .asterisk { font-size: 1.1rem; }
+
+    .section {
+      padding: 6rem 9%;
+    }
+
+    .section-heading {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 2rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .section-heading .eyebrow { margin-bottom: .85rem; }
+
+    h2 {
+      max-width: 570px;
+      margin-bottom: 0;
+      font-family: var(--serif);
+      font-size: clamp(2.5rem, 5vw, 4.3rem);
+      font-weight: 400;
+      letter-spacing: -.065em;
+      line-height: 1;
+    }
+
+    .section-note {
+      max-width: 275px;
+      margin: 0 0 .2rem;
+      color: var(--muted);
+      font-size: .83rem;
+      line-height: 1.7;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+
+    .card {
+      min-height: 270px;
+      padding: 1.5rem;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+    }
+
+    .card:nth-child(2) { background: #e9e7dc; }
+    .card:nth-child(3) { background: #e6ebd6; }
+
+    .card-number {
+      display: flex;
+      width: 37px;
+      height: 37px;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 3.6rem;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      font-family: var(--serif);
+      font-size: .95rem;
+    }
+
+    .card h3 {
+      margin-bottom: .6rem;
+      font-family: var(--serif);
+      font-size: 1.55rem;
+      font-weight: 400;
+      letter-spacing: -.035em;
+    }
+
+    .card p {
+      max-width: 290px;
+      margin-bottom: 0;
+      color: var(--muted);
+      font-size: .82rem;
+      line-height: 1.65;
+    }
+
+    .about {
+      display: grid;
+      grid-template-columns: .8fr 1.2fr;
+      gap: 12%;
+      padding-top: 1rem;
+      padding-bottom: 7rem;
+    }
+
+    .about-aside {
+      padding-top: .5rem;
+    }
+
+    .about-aside .eyebrow { margin-bottom: 1.2rem; }
+
+    .about-copy {
+      max-width: 620px;
+      color: var(--muted);
+      font-size: .96rem;
+      line-height: 1.8;
+    }
+
+    .about-copy p:last-child { margin-bottom: 0; }
+
+    .join {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      padding: 3.3rem 9%;
+      background: var(--green);
+      color: var(--paper);
+    }
+
+    .join h2 {
+      max-width: 600px;
+      font-size: clamp(2.5rem, 5vw, 4rem);
+    }
+
+    .join .button {
+      flex: 0 0 auto;
+      background: var(--lime);
+      color: var(--green);
+    }
+
+    .join .button span { color: var(--green); }
+    .join .button:hover { background: #e4f59c; }
+
+    footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 1.3rem 9%;
+      color: var(--muted);
+      font-size: .7rem;
+    }
+
+    footer p { margin: 0; }
+    footer a { text-decoration: none; }
+    footer a:hover { color: var(--green); }
+
+    @media (max-width: 760px) {
+      .topbar { min-height: 70px; padding: 0 6%; }
+      .nav-links { gap: 1rem; font-size: .72rem; }
+      .nav-links a:not(.nav-join) { display: none; }
+      .hero {
+        min-height: auto;
+        grid-template-columns: 1fr;
+        gap: 3rem;
+        padding: 4.5rem 7% 4rem;
+      }
+      h1 { font-size: clamp(3.7rem, 15vw, 6rem); }
+      .artwork { width: min(100%, 420px); justify-self: center; }
+      .ticker { justify-content: flex-start; overflow: hidden; }
+      .ticker span:nth-of-type(even) { display: none; }
+      .section { padding: 4.5rem 7%; }
+      .section-heading { align-items: start; flex-direction: column; gap: 1rem; }
+      .cards { grid-template-columns: 1fr; }
+      .card { min-height: 225px; }
+      .card-number { margin-bottom: 2.6rem; }
+      .about { grid-template-columns: 1fr; gap: 1.7rem; padding-top: 0; padding-bottom: 5rem; }
+      .join { align-items: start; flex-direction: column; padding: 3rem 7%; }
+      footer { align-items: start; flex-direction: column; padding: 1.3rem 7%; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="page-shell">
+    <header class="topbar">
+      <a class="brand" href="#top" aria-label="Campus Collective home">
+        <span class="brand-mark" aria-hidden="true">c.</span>
+        <span>campus collective</span>
+      </a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="#what-we-do">What we do</a>
+        <a href="#about">Our story</a>
+        <a class="nav-join" href="#join">Come say hi <span aria-hidden="true">↗</span></a>
+      </nav>
+    </header>
+
+    <main id="main">
+      <section class="hero" id="top" aria-labelledby="hero-title">
+        <div>
+          <p class="eyebrow">A little more campus, together</p>
+          <h1 id="hero-title">Find your<br>people. Make<br><em>something</em><br>matter.</h1>
+          <p class="hero-copy">A student-led community for curious minds, first ideas, and the kind of friendships that start with “want to try this?”</p>
+          <a class="button" href="#what-we-do">See what we're about <span aria-hidden="true">↓</span></a>
+        </div>
+        <div class="artwork" role="img" aria-label="Abstract illustration of a rising sun framed by a campus arch">
+          <span class="sun" aria-hidden="true"></span>
+          <span class="orbit" aria-hidden="true"></span>
+          <span class="arch" aria-hidden="true"><span class="arch-inner"></span></span>
+          <div class="art-label">
+            <strong>Good things<br>grow together.</strong>
+            <span>Est. on campus<br>by students</span>
+          </div>
+        </div>
+      </section>
+
+      <div class="ticker" aria-label="A place to meet, make, and belong">
+        <span>Meet your people</span><span class="asterisk" aria-hidden="true">✳</span>
+        <span>Make a little magic</span><span class="asterisk" aria-hidden="true">✳</span>
+        <span>Belong right here</span>
+      </div>
+
+      <section class="section" id="what-we-do" aria-labelledby="what-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Room to try things</p>
+            <h2 id="what-title">Your next thing<br>starts somewhere.</h2>
+          </div>
+          <p class="section-note">No special skills, perfect plans, or already-knowing-someone required. Just show up as you are.</p>
+        </div>
+        <div class="cards">
+          <article class="card">
+            <span class="card-number" aria-hidden="true">01</span>
+            <h3>Meet good people</h3>
+            <p>Low-key hangouts and thoughtful conversations make it easy to feel at home.</p>
+          </article>
+          <article class="card">
+            <span class="card-number" aria-hidden="true">02</span>
+            <h3>Make something real</h3>
+            <p>Bring a half-formed idea. Find collaborators, get curious, and see where it goes.</p>
+          </article>
+          <article class="card">
+            <span class="card-number" aria-hidden="true">03</span>
+            <h3>Find your own way</h3>
+            <p>Join in, lend a hand, or simply listen. There’s no one right way to belong.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section about" id="about" aria-labelledby="about-title">
+        <div class="about-aside">
+          <p class="eyebrow">A note from us</p>
+          <h2 id="about-title">Campus is better when it’s ours.</h2>
+        </div>
+        <div class="about-copy">
+          <p>We started Campus Collective because the best parts of student life don’t always happen in a lecture hall. They happen when someone shares an idea, saves you a seat, or makes room for you to join in.</p>
+          <p>So we’re building that kind of space: open, welcoming, and made by students. Come with a plan or come with nothing but a little curiosity. There’s a place for you here.</p>
+        </div>
+      </section>
+
+      <section class="join" id="join" aria-labelledby="join-title">
+        <h2 id="join-title">There’s a place<br>for you here.</h2>
+        <a class="button" href="#what-we-do">Start exploring <span aria-hidden="true">↗</span></a>
+      </section>
+    </main>
+
+    <footer>
+      <p>© 2026 Campus Collective · Made by students, for students.</p>
+      <a href="#top">Back to top ↑</a>
+    </footer>
+  </div>
+</body>
+</html>
